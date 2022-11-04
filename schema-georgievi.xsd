@@ -1,0 +1,91 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="list_documents" type="list_documentsType"/>
+  <xs:complexType name="entryType">
+    <xs:simpleContent>
+      <xs:extension base="xs:byte">
+        <xs:attribute type="xs:byte" name="idno" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="documentType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="type" use="optional"/>
+        <xs:attribute type="xs:string" name="lang" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="senderType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="placeName"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="role"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addresseType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="placeName" minOccurs="0"/>
+      <xs:element type="xs:string" name="name" minOccurs="0"/>
+      <xs:element type="xs:string" name="role" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="type" use="optional"/>
+    <xs:attribute type="xs:string" name="lang" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="nameType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="br" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="placeNameType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="br" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mentioned_personsType">
+    <xs:sequence>
+      <xs:element type="nameType" name="name"/>
+      <xs:element type="placeNameType" name="placeName"/>
+      <xs:element type="xs:string" name="role"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="main_themeType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="br" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="keytermsType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="br" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="other_infoType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="br" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="xs:string" name="p" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="entry_infoType">
+    <xs:choice maxOccurs="unbounded" minOccurs="0">
+      <xs:element type="entryType" name="entry"/>
+      <xs:element type="documentType" name="document"/>
+      <xs:element type="xs:string" name="claims_data"/>
+      <xs:element type="xs:string" name="date"/>
+      <xs:element type="senderType" name="sender"/>
+      <xs:element type="addresseType" name="addresse"/>
+      <xs:element type="mentioned_personsType" name="mentioned_persons">
+        <xs:annotation>
+          <xs:documentation> не навсякъде пише езика, на който е написано писмото</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="main_themeType" name="main_theme"/>
+      <xs:element type="keytermsType" name="keyterms"/>
+      <xs:element type="other_infoType" name="other_info"/>
+      <xs:element type="xs:string" name="keyterms2"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="list_documentsType">
+    <xs:sequence>
+      <xs:element type="entry_infoType" name="entry_info" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
