@@ -32,4 +32,4 @@ Use this XSD file to validate XML documents within research or archival projects
 
 ## License
 
-See the LICENSE.
+See the [LICENSE](https://github.com/Bestroi150/Georgievi-schema/LICENSE) file.
